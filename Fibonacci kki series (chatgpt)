@@ -1,0 +1,33 @@
+from typing import List
+
+def generate_fibonacci(n: int) -> List[int]:
+    """
+    Generate a Fibonacci sequence of n terms.
+
+    Parameters:
+    n (int): Number of terms to generate. Must be >= 0.
+
+    Returns:
+    List[int]: A list containing the Fibonacci sequence.
+    """
+    if n < 0:
+        raise ValueError("Number of terms must be a non-negative integer.")
+
+    sequence = []
+    a, b = 0, 1
+    for _ in range(n):
+        sequence.append(a)
+        a, b = b, a + b
+    return sequence
+
+def main():
+    try:
+        num_terms = int(input("Enter the number of terms for the Fibonacci sequence: "))
+        fib_sequence = generate_fibonacci(num_terms)
+        print("Fibonacci sequence:")
+        print(fib_sequence)
+    except ValueError as e:
+        print(f"Invalid input: {e}")
+
+if __name__ == "__main__":
+    main()
