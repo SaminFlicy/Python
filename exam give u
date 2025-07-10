@@ -1,0 +1,17 @@
+
+height = float(input("Enter your height in persentage: "))
+weight = float(input("Enter your weight in persentage: "))
+
+
+
+BMI = weight / (height)**2
+
+
+
+print("your S tell me ur mbbmi %%%%%%%% ----- is", BMI)
+
+if BMI <= 90%:
+     print("You are APPROVED SEWEYY.")
+else: 
+     print("UMMM U CAN ALSO GIV EXAM HEHE COME ON BRO IM NOT A BAD GUY .")
+
