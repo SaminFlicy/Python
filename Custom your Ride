@@ -1,0 +1,63 @@
+print("Welcome to the Ultimate Ride Selector")
+print("Choose your ride")
+print("1. 🏍️ Bike")
+print("1. 🚗 car")
+
+
+
+# Take input for ride type
+choice = int(input("Enter your choice (1 or 2): "))
+
+
+
+# If user chooses Bike 
+if choice == 1:
+    print("\nGreat! You choose a bike! 🏍️")
+    print("Now choose your style")
+    print("1. 🔥 Scooty")
+    print("1. 🙃 Scooter")
+
+    choice2 = int(input("Enter your choice (1 or 2): ")) 
+    
+
+
+
+    if choice2 == 1:
+        print("🛵 Vroooom!! You're riding a stylish Scooty! 😎")
+    elif choice2 == 2:
+        print("🛵 Clssic choice! Enjoy your Scooter ride!")
+    else:
+        print("😕 Oops! That bike type doesn't exist")
+
+
+
+
+
+
+
+
+
+# If user chooses car
+elif choice == 2:
+    print("n\Awesome! You choose a car")
+    print("What type of car would you like? 🤔")
+    print("1. 🚗 Sedan ")
+    print("2. 🚙 XUV")
+
+
+
+    choice3 = int(input("Enter your choice (1 or 2): "))
+
+
+    if choice3 == 1:
+     print("🚗 Smooth and sleek! Sedan is it! 😍💀")
+    elif choice3 == 2:
+     print("🚙 Power-packed adventure! XUV selected ")
+    else:
+     print("😕 That's not a valid car type!")
+
+
+
+# If user enters wrong input 
+else:
+ print("🚨 Invalid choice! Please restart and pick from the menu! 🤭")
