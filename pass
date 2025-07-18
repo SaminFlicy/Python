@@ -1,0 +1,11 @@
+for i in range(4):
+    if i ==0:
+       print("Wider than Shafi ")
+    
+
+    if i==1:
+       print("G.O.A.T")
+    if i==2:
+       pass
+    if i==3:
+       print("Better than SHAFI")
