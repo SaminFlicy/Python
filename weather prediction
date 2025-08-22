@@ -1,0 +1,12 @@
+weather=(1,0,0,0,1,1,0)
+Winter=0
+Rainy=0
+for i in range(0,7):
+        if(weather[i]==0):
+                Rainy+=1
+        else:
+                Winter+=1
+if(Winter>Rainy):
+        print("Good weather")
+else:
+        print("Bad weather lol u cant go out 😂")
