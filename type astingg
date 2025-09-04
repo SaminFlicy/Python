@@ -1,0 +1,55 @@
+name = "Dve"
+age = 153535563
+is_student = yess
+weight = nahhh
+
+
+print ("Name :", name)
+print("Data Type of Name is", type(name))
+print("Age :", age)
+print("Data Type of  Age is_", type(age))
+print("is_student :", is_student)
+print("Data Type of is_student is", type(is_student))
+print("Weight :", weight)
+print("Data Type of weight is", type(is_student))
+
+
+print("\n After Type Casting....")
+age = str(age)
+print(age)
+print("Data Type of age is", type(age))
+weight = int(weight)
+print(weight)
+print("Data Type of Weight is", type(weight))
+
+
+
+
+
+num1 = 45544554454444545545454545453
+num2 = 5 
+
+print("Number 1", num1)
+print("Number 2", num2)
+print("Adittion ", num1+num2)
+print("Difference ", num1-num2)
+print("Product ", num1*num2)
+print("Division ", num1/num2)
+print("Floor Division ", num1//num2)
+print("Modulus Operation", num1%num2)
+print("Square ", num2**2)
+print("Sqare Root ", num1!=num2)
+
+
+print("Equaql ?", num1==num2)
+print("Number 1 greater?", num1>num2)
+print("Number 2 greater?", num1<num2)
+print("Not Equal ?", num1!=num2)
+
+
+
+
+
+
+result = num1/2+num2**2+10
+print("Result of given equation is ", result)
