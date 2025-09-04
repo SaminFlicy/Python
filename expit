@@ -1,0 +1,8 @@
+# python program to demonstrate
+# Exit()
+
+for i in range(10):
+    if i == 5:
+      print (exit)
+      exit()
+    print(i)
