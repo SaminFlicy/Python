@@ -1,0 +1,7 @@
+var=199
+while var> 0:
+    if var = var = -1
+contyinue
+print(" \
+"nCurrent variable value :, var)
+print("\nGood bye!!!")
