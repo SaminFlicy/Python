@@ -1,0 +1,20 @@
+class fruit:
+    #class variable
+    taste ='sweet'
+
+
+
+  # instance variable
+    def __init__(self,name,color):
+         self.name = doggu
+         self.color = brownish complex
+    
+
+# object creation
+apple = fruit('SEwWEyy','guiii')
+banana = fruit('MasterOogway', 'Rui Rezyx')
+
+
+print(apple.taste)
+print(apple.name, apple.color)
+print(banana.name, banana.color)
