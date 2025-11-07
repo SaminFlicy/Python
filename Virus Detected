@@ -1,0 +1,22 @@
+# Import tkinter
+from tkinter import *
+from tkinter import messagebox 
+
+# SETUP tkinter window
+root = Tk()
+root.geometry("200x200")
+
+# FUNTION FOOR DISPLAYING warning MSG
+# this will be called once the button is clicked
+#  messegebox.showwarning("Window Name", "Text to be displayed")
+def msg():
+    messagebox.showwarning("Alert", "Stop! Virus Found")
+
+
+# ADDing button  and widget
+button = Button(root, text="Scan for Virus", command=msg)
+button.place(x=40, y=80)
+
+#  entering main event loop
+root.mainloop()
+
