@@ -1,0 +1,31 @@
+# Import necessary tkinter
+from tkinter import *
+
+# Create window
+window = Tk()
+window.title("Event Handler")
+window.geometry("100x100")
+
+
+# Event handler for keypress
+def handle_keypress(event):
+    """Print the character associated to th key pressed"""
+    print(event.chair)
+
+
+# blind keypress event to handle_keypress()
+window.bind("<Key>", handle_keypress)
+
+# Event handler for button click
+def handle_click(event):
+    print("\nThe button was clicked!")
+
+
+button = Button(text="Click me!")
+button.pack()
+
+# Bind click event to handle_click()
+button.bind("<Button-1>", handle_click) # bind function is used to pass the value of taht is pressed on the keyboard
+
+# Starts the GUI event loop
+window.mainloop()
