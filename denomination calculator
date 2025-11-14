@@ -1,0 +1,29 @@
+# import necessary tkinter liabraries
+from tkinter import *
+
+
+# Setting up the main loop
+root = Tk()
+root.geometry("400x300")
+root.title("main")
+# function to oprn new (Top level) window
+def topwin():
+    # Setting up Top window
+    top = Toplevel()
+    top.geometry("180x180")
+    # adding a label widget toTop window
+    l2 = Label(top, text = "This is toplevel window")
+    l2.pack()
+
+    top.mainloop()
+
+    # adding a label and button widget to Root (main) window
+l = Label(root, text = "This is root window!")
+btn = Button(root, text = "Click here to open another window", command = topwin)
+
+
+# Arranging widgets
+l.pack()
+btn.pack()
+
+root.mainloop()
