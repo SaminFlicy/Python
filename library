@@ -1,0 +1,52 @@
+# Library Book Availability Checker
+
+# Book names and number of copies
+books = ["Harry Potter", "The Hobbit", "Python Basics", "The Alchemist", "Atomic Habits"]
+copies = [3, 0, 5, 2, 0]
+
+# Late fees for each book
+late_fees = [20, 10, 15, 25, 30]
+
+# Combine book names with their copy counts using zip()
+book_data = list(zip(books, copies))
+
+print("===== LIBRARY BOOK AVAILABILITY CHECKER =====")
+
+# Display all books
+print("\nAll Books:")
+for book, copy in book_data:
+    print(book, "-", copy, "copies")
+
+# Filter available books using list comprehension
+available_books = [book for book, copy in book_data if copy > 0]
+
+print("\nAvailable Books:")
+for book in available_books:
+    print("-", book)
+
+# Update late fees using map()
+updated_fees = list(map(lambda fee: fee + 5, late_fees))
+
+print("\nUpdated Late Fees:")
+print(updated_fees)
+
+# Ask the user to choose a book
+chosen_book = input("\nEnter the name of the book you want to borrow: ")
+
+# Check whether the book exists
+if chosen_book not in books:
+    print("Book not found!")
+else:
+    # Find the number of copies
+    index = books.index(chosen_book)
+    available_copies = copies[index]
+
+    # Stop the program early if unavailable
+    if available_copies == 0:
+        print("Sorry! The book is currently unavailable.")
+        print("Program stopped.")
+        exit()
+
+    print("Book is available!")
+    print("You can borrow:", chosen_book)
+    print("Copies available:", available_copies)
