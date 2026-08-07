@@ -1,0 +1,167 @@
+import tkinter as tk
+
+# Create the main window
+root = tk.Tk()
+root.title("ATM PIN Setup Interface")
+root.geometry("600x500")
+root.resizable(False, False)
+
+
+# -----------------------------
+# Title
+# -----------------------------
+
+title = tk.Label(
+    root,
+    text="ATM PIN Setup",
+    font=("Arial", 20, "bold")
+)
+title.pack(pady=15)
+
+
+# -----------------------------
+# Account Details Frame
+# -----------------------------
+
+account_frame = tk.Frame(
+    root,
+    borderwidth=3,
+    relief="raised",
+    padx=15,
+    pady=15
+)
+account_frame.pack(pady=10)
+
+# Account number
+account_label = tk.Label(
+    account_frame,
+    text="Account Number:"
+)
+account_label.grid(row=0, column=0, padx=10, pady=8)
+
+account_entry = tk.Entry(
+    account_frame,
+    width=25
+)
+account_entry.grid(row=0, column=1, padx=10, pady=8)
+
+
+# PIN
+pin_label = tk.Label(
+    account_frame,
+    text="Enter PIN:"
+)
+pin_label.grid(row=1, column=0, padx=10, pady=8)
+
+pin_entry = tk.Entry(
+    account_frame,
+    width=25,
+    show="*"
+)
+pin_entry.grid(row=1, column=1, padx=10, pady=8)
+
+
+# -----------------------------
+# Keypad Frame
+# -----------------------------
+
+keypad_frame = tk.Frame(
+    root,
+    borderwidth=3,
+    relief="sunken",
+    padx=10,
+    pady=10
+)
+keypad_frame.pack(pady=10)
+
+# Keypad buttons
+buttons = [
+    "1", "2", "3",
+    "4", "5", "6",
+    "7", "8", "9",
+    "0"
+]
+
+for i, number in enumerate(buttons):
+    row = i // 3
+    column = i % 3
+
+    button = tk.Button(
+        keypad_frame,
+        text=number,
+        width=6,
+        height=2
+    )
+    button.grid(
+        row=row,
+        column=column,
+        padx=5,
+        pady=5
+    )
+
+
+# -----------------------------
+# Output Text Widget
+# -----------------------------
+
+output_text = tk.Text(
+    root,
+    width=50,
+    height=6,
+    font=("Arial", 11)
+)
+
+# Using place() to position the Text widget
+output_text.place(
+    x=80,
+    y=375
+)
+
+
+# -----------------------------
+# Function
+# -----------------------------
+
+def setup_account():
+
+    account_number = account_entry.get()
+    pin = pin_entry.get()
+
+    output_text.delete("1.0", tk.END)
+
+    if account_number == "" or pin == "":
+        output_text.insert(
+            tk.END,
+            "Please enter both account number and PIN."
+        )
+    else:
+        output_text.insert(
+            tk.END,
+            "ATM PIN Setup Successful!\n\n"
+            "Account Number: " + account_number + "\n"
+            "PIN: " + "*" * len(pin) + "\n\n"
+            "Your PIN has been securely saved."
+        )
+
+
+# -----------------------------
+# Setup Button
+# -----------------------------
+
+setup_button = tk.Button(
+    root,
+    text="Set PIN",
+    command=setup_account,
+    font=("Arial", 12, "bold"),
+    width=15
+)
+
+# Using place()
+setup_button.place(
+    x=420,
+    y=300
+)
+
+
+# Start the application
+root.mainloop()
