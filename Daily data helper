@@ -1,0 +1,49 @@
+# Daily Data Helper
+
+class DailyData:
+
+    # Constructor
+    def __init__(self, name="Student", data=None):
+        self.name = name
+
+        if data is None:
+            self.data = []
+        else:
+            self.data = data
+
+        print("DailyData object created for", self.name)
+
+    # Method to display data
+    def show_data(self):
+        print("\nDaily Data for", self.name)
+
+        for index, value in enumerate(self.data):
+            print("Index:", index, "Value:", value)
+
+    # Method to find a value
+    def search_data(self, search_value):
+        print("\nSearching for:", search_value)
+
+        for index, value in enumerate(self.data):
+            if value == search_value:
+                print("Found at index:", index)
+                return
+
+        print("Value not found.")
+
+    # Destructor
+    def __del__(self):
+        print("\nDailyData object has ended.")
+
+
+# Create an object
+daily = DailyData(
+    "Student",
+    [25, 30, 18, 42, 35, 27, 50]
+)
+
+# Display the data
+daily.show_data()
+
+# Search for a value
+daily.search_data(42)
