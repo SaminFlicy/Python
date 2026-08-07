@@ -1,0 +1,19 @@
+import matplotlib.pyplot as plt
+
+# Sample data
+marks = [
+    45, 52, 67, 72, 81, 90, 55, 63, 78, 85,
+    49, 58, 70, 76, 88, 92, 61, 69, 73, 80,
+    95, 84, 57, 66, 74, 89, 91, 53, 60, 77
+]
+
+# Create histogram
+plt.hist(marks, bins=5, edgecolor="black")
+
+# Add title and labels
+plt.title("Distribution of Student Marks")
+plt.xlabel("Marks")
+plt.ylabel("Number of Students")
+
+# Display the histogram
+plt.show()
