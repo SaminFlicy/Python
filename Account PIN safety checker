@@ -1,0 +1,61 @@
+# Account PIN Safety Checker
+
+class Account:
+
+    # Constructor
+    def __init__(self, username, pin):
+        self.username = username
+        self.__pin = pin       # Private attribute
+
+    # Setter method to safely change the PIN
+    def set_pin(self, new_pin):
+        if len(str(new_pin)) == 4:
+            self.__pin = new_pin
+            print("PIN updated successfully!")
+        else:
+            print("PIN must contain exactly 4 digits.")
+
+    # Method to check the PIN
+    def check_pin(self, pin):
+        return self.__pin == pin
+
+    # Special __str__ function
+    def __str__(self):
+        return "Account Username: " + self.username + "\nPIN: ****"
+
+
+# Create an account
+account = Account("Student123", 1234)
+
+# Display the account
+print(account)
+
+# Try to access the private attribute
+print("\nTrying to access the private PIN:")
+
+try:
+    print(account.__pin)
+except AttributeError:
+    print("Cannot access __pin directly because it is a private attribute.")
+
+
+# Check the PIN
+print("\nChecking PIN:")
+
+if account.check_pin(1234):
+    print("Correct PIN!")
+else:
+    print("Incorrect PIN!")
+
+
+# Change the PIN using the setter
+print("\nChanging PIN:")
+account.set_pin(5678)
+
+# Check the new PIN
+print("\nChecking new PIN:")
+
+if account.check_pin(5678):
+    print("New PIN is correct!")
+else:
+    print("Incorrect PIN!")
