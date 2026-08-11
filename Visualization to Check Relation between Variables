@@ -1,0 +1,104 @@
+# Visualization to Check Relation between Variables
+
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+# Load the dataset
+df = sns.load_dataset("iris")
+
+# Display the first few rows
+print("First 5 rows of the dataset:")
+print(df.head())
+
+# Display information about the dataset
+print("\nDataset Information:")
+print(df.info())
+
+# -----------------------------------------
+# 1. Scatter Plot
+# -----------------------------------------
+
+plt.figure(figsize=(8, 5))
+
+sns.scatterplot(
+    data=df,
+    x="sepal_length",
+    y="petal_length",
+    hue="species",
+    s=80
+)
+
+plt.title("Scatter Plot: Sepal Length vs Petal Length")
+plt.xlabel("Sepal Length")
+plt.ylabel("Petal Length")
+plt.show()
+
+
+# -----------------------------------------
+# 2. Area Graph
+# -----------------------------------------
+
+# Calculate average measurements for each species
+area_data = df.groupby("species")[
+    ["sepal_length", "sepal_width", "petal_length", "petal_width"]
+].mean()
+
+plt.figure(figsize=(10, 6))
+
+area_data.plot.area(alpha=0.6)
+
+plt.title("Area Graph of Average Flower Measurements")
+plt.xlabel("Species")
+plt.ylabel("Average Measurement")
+plt.legend(title="Variables")
+plt.show()
+
+
+# -----------------------------------------
+# 3. Pair Plot
+# -----------------------------------------
+
+sns.pairplot(
+    df,
+    hue="species",
+    height=2.5
+)
+
+plt.suptitle(
+    "Pair Plot Showing Relationship Between Variables",
+    y=1.02
+)
+
+plt.show()
+
+
+# -----------------------------------------
+# 4. Correlation Heatmap
+# -----------------------------------------
+
+# Select numerical columns
+numeric_data = df.select_dtypes(include="number")
+
+plt.figure(figsize=(8, 6))
+
+sns.heatmap(
+    numeric_data.corr(),
+    annot=True,
+    cmap="coolwarm",
+    linewidths=0.5
+)
+
+plt.title("Correlation Between Variables")
+plt.show()
+
+
+# -----------------------------------------
+# Conclusion
+# -----------------------------------------
+
+print("\nConclusion:")
+print("The scatter plot helps us see the relationship between two variables.")
+print("The area graph compares the average values of different measurements.")
+print("The pair plot shows relationships between all numerical variables.")
+print("The heatmap shows the strength of correlation between variables.")
