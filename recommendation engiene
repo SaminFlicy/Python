@@ -1,0 +1,52 @@
+import pandas as pd
+from sklearn.preprocessing import LabelEncoder
+from sklearn.tree import DecisionTreeClassifier
+
+# Sample recommendation dataset
+data = {
+    "Age": [15, 16, 18, 20, 22, 25, 30, 35, 40, 45],
+    "Rating": [5, 4, 5, 3, 4, 5, 2, 4, 3, 5],
+    "Category": [
+        "Action",
+        "Comedy",
+        "Action",
+        "Drama",
+        "Comedy",
+        "Action",
+        "Drama",
+        "Comedy",
+        "Drama",
+        "Action"
+    ]
+}
+
+df = pd.DataFrame(data)
+
+# Encode categories into numbers
+encoder = LabelEncoder()
+df["Category"] = encoder.fit_transform(df["Category"])
+
+# Features
+X = df[["Age", "Rating"]]
+
+# Target
+y = df["Category"]
+
+# Create the recommendation model
+model = DecisionTreeClassifier(random_state=42)
+
+# Train the model
+model.fit(X, y)
+
+# Get user information
+age = int(input("Enter your age: "))
+rating = int(input("Enter your preferred rating (1-5): "))
+
+# Make recommendation
+prediction = model.predict([[age, rating]])
+
+# Convert prediction back to category
+recommendation = encoder.inverse_transform(prediction)
+
+print("\nRecommended category:", recommendation[0])
+print("Enjoy your recommendation!")
