@@ -1,0 +1,52 @@
+import pandas as pd
+
+# Load the datasets
+matches = pd.read_csv("matches.csv")
+deliveries = pd.read_csv("deliveries.csv")
+
+# Display first 5 rows
+print("MATCHES DATA:")
+print(matches.head())
+
+print("\nDELIVERIES DATA:")
+print(deliveries.head())
+
+# Check missing values
+print("\nMissing values in matches:")
+print(matches.isnull().sum())
+
+print("\nMissing values in deliveries:")
+print(deliveries.isnull().sum())
+
+# Remove columns that are not required
+matches = matches.drop(
+    columns=["umpire3"],
+    errors="ignore"
+)
+
+deliveries = deliveries.drop(
+    columns=["player_dismissed", "dismissal_kind", "fielder"],
+    errors="ignore"
+)
+
+# Fill missing numerical values with 0
+matches = matches.fillna(0)
+deliveries = deliveries.fillna(0)
+
+# Remove duplicate rows
+matches = matches.drop_duplicates()
+deliveries = deliveries.drop_duplicates()
+
+# Display processed data
+print("\nProcessed Matches:")
+print(matches.head())
+
+print("\nProcessed Deliveries:")
+print(deliveries.head())
+
+# Check again for null values
+print("\nRemaining null values in matches:")
+print(matches.isnull().sum().sum())
+
+print("\nRemaining null values in deliveries:")
+print(deliveries.isnull().sum().sum())
