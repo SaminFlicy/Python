@@ -1,0 +1,21 @@
+import math
+
+n = 30
+p = 10 / 30
+
+# Probability of observing 12 or more rainy days
+prob_12_or_more = 0
+
+for x in range(12, n + 1):
+    prob = math.comb(n, x) * (p ** x) * ((1 - p) ** (n - x))
+    prob_12_or_more += prob
+
+# Probability of observing between 12 and 18 rainy days
+prob_12_to_18 = 0
+
+for x in range(12, 19):
+    prob = math.comb(n, x) * (p ** x) * ((1 - p) ** (n - x))
+    prob_12_to_18 += prob
+
+print("Probability of 12 or more days of rain:", prob_12_or_more)
+print("Probability of between 12 and 18 days of rain:", prob_12_to_18)
