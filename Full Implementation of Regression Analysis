@@ -1,0 +1,56 @@
+import numpy as np
+import matplotlib.pyplot as plt
+
+# Sample data
+X = np.array([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], dtype=float)
+y = np.array([3, 5, 7, 9, 11, 13, 15, 17, 19, 21], dtype=float)
+
+# Initialize parameters
+m = 0
+b = 0
+
+# Learning rate
+learning_rate = 0.01
+
+# Number of iterations
+iterations = 1000
+
+n = len(X)
+
+# Gradient Descent
+for i in range(iterations):
+
+    # Predictions
+    y_pred = m * X + b
+
+    # Calculate gradients
+    dm = (-2 / n) * np.sum(X * (y - y_pred))
+    db = (-2 / n) * np.sum(y - y_pred)
+
+    # Update parameters
+    m = m - learning_rate * dm
+    b = b - learning_rate * db
+
+# Final predictions
+y_pred = m * X + b
+
+# Calculate Mean Squared Error
+mse = np.mean((y - y_pred) ** 2)
+
+print("Linear Regression using Gradient Descent")
+print("----------------------------------------")
+print("Slope (m):", m)
+print("Intercept (b):", b)
+print("Mean Squared Error:", mse)
+
+# Plot original data
+plt.scatter(X, y, label="Actual Data")
+
+# Plot regression line
+plt.plot(X, y_pred, label="Regression Line")
+
+plt.xlabel("X")
+plt.ylabel("Y")
+plt.title("Linear Regression using Gradient Descent")
+plt.legend()
+plt.show()
