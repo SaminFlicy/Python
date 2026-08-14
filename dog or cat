@@ -1,0 +1,67 @@
+# ======================
+# 1. Import libraries
+# ======================
+import os
+import numpy as np
+import matplotlib.pyplot as plt
+from tensorflow.keras.preprocessing.image import ImageDataGenerator
+from tensorflow.keras.models import Sequential
+from tensorflow.keras.layers import Conv2D, MaxPooling2D, Flatten, Dense, Dropout
+from tensorflow.keras.optimizers import Adam
+
+# ======================
+# 2. Data paths (change these to match your dataset)
+# ======================
+TRAIN_DIR = "path/to/train"          # folders: train/cats , train/dogs
+VALIDATION_DIR = "path/to/validation" # folders: validation/cats , validation/dogs
+
+IMG_SIZE = (150, 150)                # common size used in these projects
+BATCH_SIZE = 32
+
+# ======================
+# 3. Data Preprocessing
+# ======================
+train_datagen = ImageDataGenerator(
+    rescale=1./255,
+    rotation_range=20,
+    width_shift_range=0.2,
+    height_shift_range=0.2,
+    shear_range=0.2,
+    zoom_range=0.2,
+    horizontal_flip=True,
+    fill_mode='nearest'
+)
+
+val_datagen = ImageDataGenerator(rescale=1./255)
+
+train_generator = train_datagen.flow_from_directory(
+    TRAIN_DIR,
+    target_size=IMG_SIZE,
+    batch_size=BATCH_SIZE,
+    class_mode='binary'              # cat=0, dog=1
+)
+
+validation_generator = val_datagen.flow_from_directory(
+    VALIDATION_DIR,
+    target_size=IMG_SIZE,
+    batch_size=BATCH_SIZE,
+    class_mode='binary'
+)
+
+print("Class indices:", train_generator.class_indices)
+
+# ======================
+# 4. Baseline CNN Model
+# ======================
+model = Sequential([
+    Conv2D(32, (3, 3), activation='relu', input_shape=(150, 150, 3)),
+    MaxPooling2D(2, 2),
+    
+    Conv2D(64, (3, 3), activation='relu'),
+    MaxPooling2D(2, 2),
+    
+    Conv2D(128, (3, 3), activation='relu'),
+    MaxPooling2D(2, 2),
+    
+    Flatten(),
+    Dense(512, activation='relu'),
