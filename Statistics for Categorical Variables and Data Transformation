@@ -1,0 +1,43 @@
+import pandas as pd
+import matplotlib.pyplot as plt
+
+# Load the dataset
+df = pd.read_csv("data.csv")
+
+# Display the dataset
+print("Dataset:")
+print(df.head())
+
+# Find categorical columns
+categorical_columns = df.select_dtypes(include=["object", "category"]).columns
+
+print("\nCategorical Columns:")
+print(categorical_columns)
+
+# Display frequency of categorical values
+for column in categorical_columns:
+    print("\nFrequency of", column)
+    print(df[column].value_counts())
+
+# Display the median of numerical columns
+print("\nMedian Values:")
+print(df.select_dtypes(include="number").median())
+
+# Convert categorical data into numerical values
+for column in categorical_columns:
+    df[column] = df[column].astype("category").cat.codes
+
+print("\nTransformed Dataset:")
+print(df.head())
+
+# Display correlation after transformation
+print("\nCorrelation:")
+print(df.corr(numeric_only=True))
+
+# Visualize the categorical data
+for column in categorical_columns:
+    df[column].value_counts().plot(kind="bar")
+    plt.title("Frequency of " + column)
+    plt.xlabel(column)
+    plt.ylabel("Frequency")
+    plt.show()
