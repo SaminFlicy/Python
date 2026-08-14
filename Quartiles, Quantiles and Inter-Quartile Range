@@ -1,0 +1,33 @@
+import pandas as pd
+import matplotlib.pyplot as plt
+
+# Create the dataset
+data = [12, 15, 18, 20, 22, 25, 27, 30, 32, 35, 38, 40, 42, 45, 50]
+
+# Convert data into a pandas Series
+series = pd.Series(data)
+
+# Calculate quartiles
+Q1 = series.quantile(0.25)
+Q2 = series.quantile(0.50)
+Q3 = series.quantile(0.75)
+
+# Calculate Inter-Quartile Range
+IQR = Q3 - Q1
+
+# Display results
+print("Data:")
+print(data)
+
+print("\nQuartiles:")
+print("Q1 (25th percentile):", Q1)
+print("Q2 (50th percentile / Median):", Q2)
+print("Q3 (75th percentile):", Q3)
+
+print("\nInter-Quartile Range (IQR):", IQR)
+
+# Create a boxplot
+plt.boxplot(data)
+plt.title("Boxplot of Data")
+plt.ylabel("Values")
+plt.show()
