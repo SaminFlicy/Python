@@ -1,0 +1,30 @@
+import pandas as pd
+
+# Create a sample dataset
+data = {
+    "Name": ["Ali", "Sara", "John", "Mia", "David", "Emma", "Alex"],
+    "Age": [15, 16, 15, 17, 16, 15, 18],
+    "Marks": [80, 90, 75, 90, 85, 90, 70]
+}
+
+df = pd.DataFrame(data)
+
+# Display the dataset
+print("Dataset:")
+print(df)
+
+# Identify variable types
+print("\nVariable Types:")
+print(df.dtypes)
+
+# Calculate Mean, Median and Mode of Age
+print("\nAge Statistics:")
+print("Mean:", df["Age"].mean())
+print("Median:", df["Age"].median())
+print("Mode:", df["Age"].mode()[0])
+
+# Calculate Mean, Median and Mode of Marks
+print("\nMarks Statistics:")
+print("Mean:", df["Marks"].mean())
+print("Median:", df["Marks"].median())
+print("Mode:", df["Marks"].mode()[0])
