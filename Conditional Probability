@@ -1,0 +1,7 @@
+white_balls = 25
+total_balls = 30
+
+# First ball is already known to be white
+probability = (white_balls - 1) / (total_balls - 1)
+
+print("Probability that the second ball is also white:", probability)
