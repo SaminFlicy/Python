@@ -1,0 +1,127 @@
+# ================================================
+# Train Your Own Digit Recognizer (MNIST + CNN)
+# ================================================
+
+import numpy as np
+import matplotlib.pyplot as plt
+from tensorflow.keras.datasets import mnist
+from tensorflow.keras.models import Sequential, load_model
+from tensorflow.keras.layers import Conv2D, MaxPooling2D, Flatten, Dense, Dropout
+from tensorflow.keras.utils import to_categorical
+from tensorflow.keras.optimizers import Adam
+from tensorflow.keras.preprocessing import image
+import os
+
+# ------------------------------------------------
+# 1. Load & Preprocess MNIST
+# ------------------------------------------------
+(x_train, y_train), (x_test, y_test) = mnist.load_data()
+
+x_train = x_train.reshape(-1, 28, 28, 1).astype('float32') / 255.0
+x_test  = x_test.reshape(-1, 28, 28, 1).astype('float32') / 255.0
+
+y_train = to_categorical(y_train, 10)
+y_test  = to_categorical(y_test, 10)
+
+print("Training samples:", x_train.shape[0])
+print("Test samples:", x_test.shape[0])
+
+# ------------------------------------------------
+# 2. Build the CNN Model
+# ------------------------------------------------
+model = Sequential([
+    Conv2D(32, (3, 3), activation='relu', input_shape=(28, 28, 1)),
+    MaxPooling2D((2, 2)),
+    
+    Conv2D(64, (3, 3), activation='relu'),
+    MaxPooling2D((2, 2)),
+    
+    Conv2D(64, (3, 3), activation='relu'),
+    
+    Flatten(),
+    Dense(128, activation='relu'),
+    Dropout(0.5),
+    Dense(10, activation='softmax')
+])
+
+model.compile(
+    optimizer=Adam(learning_rate=0.001),
+    loss='categorical_crossentropy',
+    metrics=['accuracy']
+)
+
+model.summary()
+
+# ------------------------------------------------
+# 3. Train the Model
+# ------------------------------------------------
+history = model.fit(
+    x_train, y_train,
+    batch_size=128,
+    epochs=10,
+    validation_split=0.1,
+    verbose=1
+)
+
+# ------------------------------------------------
+# 4. Evaluate the Model
+# ------------------------------------------------
+test_loss, test_acc = model.evaluate(x_test, y_test, verbose=0)
+print(f"\n✅ Test Accuracy: {test_acc * 100:.2f}%")
+
+# ------------------------------------------------
+# 5. Save the Model
+# ------------------------------------------------
+model.save("digit_recognizer.h5")
+print("Model saved as digit_recognizer.h5")
+
+# ------------------------------------------------
+# 6. Reload the Model & Make Predictions
+# ------------------------------------------------
+loaded_model = load_model("digit_recognizer.h5")
+print("Model reloaded successfully!")
+
+# Predict on first 10 test images
+predictions = loaded_model.predict(x_test[:10])
+predicted_labels = np.argmax(predictions, axis=1)
+true_labels = np.argmax(y_test[:10], axis=1)
+
+print("\nSample Predictions (Test set):")
+for i in range(10):
+    print(f"Image {i}: True = {true_labels[i]} | Predicted = {predicted_labels[i]}")
+
+# Optional: Visualize predictions
+plt.figure(figsize=(12, 5))
+for i in range(10):
+    plt.subplot(2, 5, i + 1)
+    plt.imshow(x_test[i].reshape(28, 28), cmap='gray')
+    color = 'green' if predicted_labels[i] == true_labels[i] else 'red'
+    plt.title(f"T:{true_labels[i]} P:{predicted_labels[i]}", color=color)
+    plt.axis('off')
+plt.tight_layout()
+plt.show()
+
+# ------------------------------------------------
+# 7. (Optional) Predict on a Custom Image
+# ------------------------------------------------
+def predict_custom_image(img_path, model):
+    """Load a custom handwritten digit image and predict"""
+    if not os.path.exists(img_path):
+        print(f"File not found: {img_path}")
+        return
+    
+    img = image.load_img(img_path, color_mode='grayscale', target_size=(28, 28))
+    img_array = image.img_to_array(img)
+    img_array = img_array.reshape(1, 28, 28, 1).astype('float32') / 255.0
+    
+    # Invert if necessary (MNIST is white digit on black background)
+    if np.mean(img_array) > 0.5:
+        img_array = 1.0 - img_array
+    
+    pred = model.predict(img_array)
+    digit = np.argmax(pred)
+    confidence = np.max(pred) * 100
+    
+    print(f"\nCustom Image Prediction → Digit: {digit} (Confidence: {confidence:.1f}%)")
+    
+    plt.imshow(img_array.reshape(28, 28), cmap='
