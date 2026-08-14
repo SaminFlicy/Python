@@ -1,0 +1,47 @@
+import pandas as pd
+import matplotlib.pyplot as plt
+
+# Load the dataset
+df = pd.read_csv("data.csv")
+
+# Display the first 5 rows
+print("First 5 rows:")
+print(df.head())
+
+# Display information about the dataset
+print("\nDataset Information:")
+print(df.info())
+
+# Check for missing values
+print("\nMissing Values:")
+print(df.isnull().sum())
+
+# Statistical summary
+print("\nStatistical Summary:")
+print(df.describe())
+
+# Check the shape of the dataset
+print("\nDataset Shape:")
+print(df.shape)
+
+# Check column names
+print("\nColumn Names:")
+print(df.columns)
+
+# Check duplicate rows
+print("\nDuplicate Rows:")
+print(df.duplicated().sum())
+
+# Display unique values for each column
+print("\nUnique Values:")
+for column in df.columns:
+    print(column, ":", df[column].nunique())
+
+# Correlation between numerical columns
+print("\nCorrelation:")
+print(df.corr(numeric_only=True))
+
+# Histograms for numerical data
+df.hist(figsize=(10, 8))
+plt.tight_layout()
+plt.show()
