@@ -1,0 +1,93 @@
+# ============================================
+# Handwritten Digit Recognizer (MNIST + CNN)
+# ============================================
+
+# 1. Import libraries
+import numpy as np
+import matplotlib.pyplot as plt
+from tensorflow.keras.datasets import mnist
+from tensorflow.keras.models import Sequential
+from tensorflow.keras.layers import Conv2D, MaxPooling2D, Flatten, Dense, Dropout
+from tensorflow.keras.utils import to_categorical
+from tensorflow.keras.optimizers import Adam
+
+# 2. Load the MNIST dataset
+(x_train, y_train), (x_test, y_test) = mnist.load_data()
+
+print("Training data shape:", x_train.shape)
+print("Test data shape:", x_test.shape)
+
+# 3. Preprocess the data
+# Reshape to (samples, height, width, channels)
+x_train = x_train.reshape(-1, 28, 28, 1).astype('float32')
+x_test  = x_test.reshape(-1, 28, 28, 1).astype('float32')
+
+# Normalize pixel values to [0, 1]
+x_train /= 255.0
+x_test  /= 255.0
+
+# One-hot encode the labels
+y_train = to_categorical(y_train, 10)
+y_test  = to_categorical(y_test, 10)
+
+print("After preprocessing:")
+print("x_train shape:", x_train.shape)
+print("y_train shape:", y_train.shape)
+
+# 4. Build a simple CNN model
+model = Sequential([
+    Conv2D(32, (3, 3), activation='relu', input_shape=(28, 28, 1)),
+    MaxPooling2D((2, 2)),
+    
+    Conv2D(64, (3, 3), activation='relu'),
+    MaxPooling2D((2, 2)),
+    
+    Flatten(),
+    Dense(128, activation='relu'),
+    Dropout(0.5),
+    Dense(10, activation='softmax')          # 10 digits (0-9)
+])
+
+model.compile(
+    optimizer=Adam(learning_rate=0.001),
+    loss='categorical_crossentropy',
+    metrics=['accuracy']
+)
+
+model.summary()
+
+# 5. Train the model
+history = model.fit(
+    x_train, y_train,
+    batch_size=128,
+    epochs=10,
+    validation_split=0.1,          # 10% of training data for validation
+    verbose=1
+)
+
+# 6. Evaluate on test set
+test_loss, test_accuracy = model.evaluate(x_test, y_test, verbose=0)
+print(f"\nTest Accuracy: {test_accuracy * 100:.2f}%")
+
+# 7. Make predictions on a few sample images
+predictions = model.predict(x_test[:10])
+predicted_labels = np.argmax(predictions, axis=1)
+true_labels = np.argmax(y_test[:10], axis=1)
+
+print("\nSample Predictions:")
+for i in range(10):
+    print(f"Image {i}: True = {true_labels[i]}, Predicted = {predicted_labels[i]}")
+
+# Optional: Plot some sample predictions
+plt.figure(figsize=(12, 5))
+for i in range(10):
+    plt.subplot(2, 5, i+1)
+    plt.imshow(x_test[i].reshape(28, 28), cmap='gray')
+    plt.title(f"True: {true_labels[i]}\nPred: {predicted_labels[i]}")
+    plt.axis('off')
+plt.tight_layout()
+plt.show()
+
+# Save the model (optional)
+model.save("mnist_digit_recognizer.h5")
+print("\nModel saved as mnist_digit_recognizer.h5")
